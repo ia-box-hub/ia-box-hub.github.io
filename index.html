@@ -239,23 +239,32 @@ function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
 function generateCards(list){    
     const grid = document.getElementById('aiGrid');    
     grid.innerHTML = "";    
+
     list.forEach(tool => {    
         const card = document.createElement('div');    
         card.className = 'ai-card';    
         card.dataset.category = tool.category;    
-        
+
         const logoImg = `https://img.logo.dev/${tool.domain}?token=${LOGO_DEV_TOKEN}&retina=true`;
+
         card.innerHTML = `    
             <div class="ai-icon">
-                <img src="https://img.logo.dev/stripe.com?token=pk_UqOqLhjhScuKjHvhYO-W-Q" alt="Stripe logo" />
-                </div>    
+                <img 
+                    src="${logoImg}" 
+                    alt="Logo ${tool.name}"
+                    loading="lazy"
+                    onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(tool.name)}&background=00d4ff&color=ffffff&bold=true'">
+            </div>    
             <h3>${tool.name}</h3>    
             <p>${tool.desc}</p>    
             <div class="ai-footer">    
-                <span style="color:${tool.label === 'Payant' || tool.label === 'Premium' ? 'var(--premium)' : 'var(--accent)'}">${tool.label}</span>    
+                <span style="color:${tool.label === 'Payant' || tool.label === 'Premium' ? 'var(--premium)' : 'var(--accent)'}">
+                    ${tool.label}
+                </span>    
                 <a href="${tool.url}" target="_blank" class="btn-visit">Explorer →</a>    
             </div>    
         `;    
+
         grid.appendChild(card);    
     });    
 }    
@@ -285,3 +294,5 @@ function filterByCategory(cat) {
 </script>  
 </body>   
 </html>
+
+    
